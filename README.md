@@ -17,11 +17,11 @@ the application also implements a basic Breadth First and Depth First search so 
 they compare to the previous two algorithms.
 
 
-<img src="https://raw.githubusercontent.com/strohs/pathfinding-algorithms/master/pathfinding1.png" width="400"/>
+<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/pathfinding1.png" width="400"/>
 
-<img src="https://raw.githubusercontent.com/strohs/pathfinding-algorithms/master/pathfinding2.png" width="400"/>
+<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/pathfinding2.png" width="400"/>
 
-<img src="https://raw.githubusercontent.com/strohs/pathfinding-algorithms/master/pathfinding3.png" width="400"/>
+<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/pathfinding3.png" width="400"/>
 
 
 ## Running
@@ -55,7 +55,7 @@ algorithm. The current path will appear on the grid as a green line branching ou
 * Once the algorithm completes, it will display a message on the page with the total length and weight of the path.
 
 ### Grid Cells
-<img src="https://raw.githubusercontent.com/strohs/pathfinding-algorithms/master/pathfinding-grid.png" width="200"/>
+<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/pathfinding-grid.png" width="200"/>
 
 The cells in the grid are color coded based on their weight:
 * white cells (weight = 1)
@@ -66,7 +66,7 @@ The cells in the grid are color coded based on their weight:
 ### Buttons
 Beneath the navbar are 4 buttons that are used to start/stop and restart the currently selected algorithm: 
 
-<img src="https://raw.githubusercontent.com/strohs/pathfinding-algorithms/master/buttons.png" width="300"/>
+<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/buttons.png" width="300"/>
 
 * the blue play button starts and pauses the currently selected algorithm
 * the green "Quick Run" is used to run the currently selected algorithm to completion, skipping all animation
@@ -74,7 +74,7 @@ Beneath the navbar are 4 buttons that are used to start/stop and restart the cur
 * the "Clear Weights" button clears all cells weights and resets them to white cells with a weight of 1.
 
 ### Sliders
-<img src="https://raw.githubusercontent.com/strohs/pathfinding-algorithms/master/buttons.png" width="300"/>
+<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/sliders.png" width="300"/>
 
 * **Animation Speed** controls the refresh rate when animating a pathfinding algorithm
 * **Grid Size** changes the size of the grid (10x10 to 100x100)
