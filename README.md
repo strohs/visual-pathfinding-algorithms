@@ -17,11 +17,8 @@ the application also implements a basic Breadth First and Depth First search so 
 they compare to the previous two algorithms.
 
 
-<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/pathfinding1.png" width="400"/>
-
 <img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/pathfinding2.png" width="400"/>
 
-<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/pathfinding3.png" width="400"/>
 
 
 ## Running
