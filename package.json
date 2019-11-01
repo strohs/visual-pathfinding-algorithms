@@ -1,0 +1,22 @@
+{
+  "name": "pathfinding-algorithms",
+  "version": "1.0.0",
+  "description": "interactive pathfiding algorithms A* and Dijkstra's",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server ./ -p 8080"
+  },
+  "keywords": [
+    "pathfinding",
+    "A*",
+    "A-star",
+    "dijkstra"
+  ],
+  "author": "strohs1@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  },
+  "dependencies": {}
+}

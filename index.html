@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Visual Pathfinding Algorithms</title>
+    <link rel="stylesheet" href="./styles/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+</head>
+<body>
+
+<!-- navbar -->
+<nav class="navbar is-link" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item is-size-4" href="https://en.wikipedia.org/wiki/Pathfinding" target="_blank">
+            Visual Pathfinding Algorithms
+        </a>
+
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Algorithms
+                </a>
+
+                <div id="algorithm-menu" class="navbar-dropdown">
+                    <a id="algorithm-menu-astar" class="navbar-item is-active">
+                        A*
+                    </a>
+                    <a id="algorithm-menu-dijk" class="navbar-item">
+                        Dijkstra's
+                    </a>
+                    <a id="algorithm-menu-breadth-first" class="navbar-item">
+                        Breadth First Search
+                    </a>
+                    <a id="algorithm-menu-depth-first" class="navbar-item">
+                        Depth First Search
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-item">
+                <a id="help-btn" class="button is-light is-rounded">
+                    Help
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</nav>
+<!-- ./navbar-->
+
+<!-- message header -->
+<section class="section">
+    <div class="container has-text-centered">
+        <div id="notification-box" class="notification">
+           <p class="title is-size-5 message-container">Message Text</p>
+        </div>
+    </div>
+</section>
+<!-- ./message header -->
+
+<!-- controls container-->
+<section>
+
+    <div class="container">
+
+        <div class="buttons is-centered are-small">
+            <button id="play-pause-btn" class="button is-link">
+                <span class="icon">
+                    <i id="play-btn-icon" class="fas fa-play"></i>
+                </span>
+            </button>
+            <button id="quick-run-btn" class="button is-success">Quick Run</button>
+            <button id="restart-btn" class="button is-warning is-light is-outlined">Restart</button>
+            <button id="clear-btn" class="button is-info is-light is-outlined">Clear Weights</button>
+        </div>
+
+        <div class="columns is-centered">
+            <div class="column is-one-third">
+                <div class="field">
+                    <label class="label" for="cell-color-range">
+                        Cell Weight (<span class="has-text-grey is-family-secondary" id="cell-color-output">0</span>):
+                    </label>
+                    <div class="control">
+                        <input id="cell-color-range"
+                               class="input is-small is-rounded" type="range"
+                               style="background-image: linear-gradient(to right, white 10%, lightblue 10%, blue 90%, black 90% 100%)"
+                               name="colorWeight" min="0.1" max="1.0" step="0.1" value="1.0">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="speed-range">
+                        Animation Speed (<span class="has-text-grey is-family-secondary" id="animation-speed-output">100%</span>):
+                    </label>
+                    <div class="control">
+                        <input class="input is-small is-rounded" type="range" id="speed-range" name="speed" min="1" max="10" value="10">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="grid-size-range">
+                        Grid Size (<span class="has-text-grey is-family-secondary" id="grid-size-output">50x50</span>):
+                    </label>
+                    <div class="control">
+                        <input class="input is-small is-rounded" type="range" id="grid-size-range" name="gridSize" min="10" max="100" value="50" step="10">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="randomize-range">
+                        Randomize Obstacle Cells (<span class="has-text-grey is-family-secondary" id="randomize-output">20%</span>):
+                    </label>
+                    <div class="control">
+                        <input class="input is-small is-rounded" type="range" id="randomize-range" name="randomizeObstacles" min="0" max="90" value="15" step="1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- ./controls container-->
+
+
+<section class="section">
+    <!-- canvas -->
+    <div class="container is-fluid has-text-centered">
+        <canvas id="grid-canvas" tabindex="1"></canvas>
+    </div>
+    <!-- ./canvas -->
+</section>
+
+
+<!-- help modal -->
+<div id="help-modal" class="modal">
+    <div class="modal-background" onclick="this.parentElement.classList.remove('is-active')"></div>
+    <div class="modal-content">
+        <div class="box">
+            <div class="content">
+                <p class="title">Help</p>
+                <table class="table is-bordered">
+                    <tbody>
+                        <tr>
+                            <th>
+                                Start Cell
+                                <span class="icon">
+                                    <i class="fas fa-square" style="color: #33ff83"></i>
+                                </span>
+                            </th>
+                            <td><strong>Shift+Left Click</strong> on a grid cell to set a new Start cell location</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Goal Cell
+                                <span class="icon">
+                                    <i class="fas fa-square" style="color: #ff001b"></i>
+                                </span>
+                            </th>
+                            <td><strong>Ctrl+Left Click</strong> on a grid cell to set a new Goal cell location</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Weighted Cells
+                                <span class="icon">
+                                    <i class="fas fa-square" style="color: lightblue"></i>
+                                </span>
+                                <span class="icon">
+                                    <i class="fas fa-square" style="color: blue"></i>
+                                </span>
+                                <span class="icon">
+                                    <i class="fas fa-square" style="color: black"></i>
+                                </span>
+                            </th>
+                            <td>Cells range in color from white to black with shades of blue in between.
+                                White cells have the lowest weight = 1. while black cells have weight = 100.
+                                Cells in shades of blue range in weight from 2 to 9, with lighter shades having
+                                lower weights.
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Changing Cell Weights
+                                <div class="control">
+                                    <input id="help-cell-color-range"
+                                           class="input is-small is-rounded" type="range"
+                                           style="background-image: linear-gradient(to right, white 10%, lightblue 10%, blue 90%, black 90% 100%)"
+                                           name="colorWeight" min="0.1" max="1.0" step="0.1" value="1.0">
+                                </div>
+                            </th>
+                            <td>Use the cell weight slider to select the cell weight you want to draw, then
+                                <strong>Left Click, OR Left Click + Drag</strong> on the grid to draw cell(s) of
+                                that color and weight.
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <button class="button is-link is-small">▶</button>
+                            </th>
+                            <td>Press to begin animating the current algorithm. Press again to pause</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <button class="button is-success is-small">Quick Run</button>
+                            </th>
+                            <td>Press to run the algorithm to completion, skipping all animation. Useful
+                            to quickly see if a path to the goal cell can be found.</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <button class="button is-warning is-small is-light">Restart</button>
+                            </th>
+                            <td>Press to restart the current algorithm. This is needed when you change the start/goal cell
+                            or if you change cell weights on the grid.</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <button class="button is-link is-small is-light">Clear Weights</button>
+                            </th>
+                            <td>Press to reset all cell weights to white cells (cell weight = 1)</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Algorithms
+                            </th>
+                            <td>
+                                <table class="table is-striped is-narrow">
+                                    <tbody>
+                                    <tr>
+                                        <th>
+                                            <a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm" target="_blank">Dijkstra's Algorithm</a>
+                                        </th>
+                                        <td>
+                                            Dijkstra's algorithm is a shortest path first algorithm. It's a breadth first search
+                                            that finds the smallest cost (lowest total weight) path between two nodes on a graph.
+                                            It typically uses a min-priority queue for storing nodes sorted by distance from the start node.
+                                            This application stores nodes in an array sorted by total weight from the start node.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <a href="https://en.wikipedia.org/wiki/A*_search_algorithm" target="_blank">A* Algorithm</a>
+                                        </th>
+                                        <td>
+                                            A* is a variation of Dijkstra's algorithm. Like Dijkstra's, it
+                                            attempts to find the shortest path to a goal node (cell), having the smallest cost (i.e. lowest
+                                            total weight). A* uses a heuristic function to help guide it towards the goal cell.
+                                            This application uses the euclidian distance from the current cell to the goal cell as
+                                            the heuristic function.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <a href="https://en.wikipedia.org/wiki/Breadth-first_search" target="_blank">Breadth First Search</a>
+                                        </th>
+                                        <td>
+                                            This is a standard breadth first search that does not take node weights into account.
+                                            NOTE, that it will avoid obstacle cells (i.e. cells with weight = 100).
+                                            Cells are added into a queue, and explored level by level. It's included for
+                                            comparison purposes.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <a href="https://en.wikipedia.org/wiki/Depth-first_search" target="_blank">Depth First Search</a>
+                                        </th>
+                                        <td>
+                                            Standard depth first search that does not take cell weights into account, but will
+                                            avoid obstacle cells (ie. cells with weight >= 100)
+                                            Cells are pushed onto a stack, and explored as far as possible before backtracking.
+                                            When visualized in this application, it will appear to explore column by column.
+                                            It's included for comparison purposes.
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="this.parentElement.classList.remove('is-active')"></button>
+</div>
+
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>
