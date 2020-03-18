@@ -1,5 +1,7 @@
 /**
  * Fibonacci Heap implementation borrowed from https://github.com/gwtw/js-fibonacci-heap and converted to ES6
+ * NOTE: this class is not currently used, but may be used in the future to speed up some of the pathfinding
+ * algorithms
  */
 
 class FibonacciHeap {

@@ -7,7 +7,10 @@ const finishedStatus = {
     PATH_NOT_FOUND: 1,
 };
 
-
+/**
+ * Base class for pathfinding algorithms.
+ * This class encapsulates common functionality used by the different pathfinding algorithms
+ */
 class Algorithm {
 
     constructor(grid) {
@@ -16,7 +19,7 @@ class Algorithm {
 
     /**
      * resets Node function values and algorithm variables to their initial values, so that the search can be
-     * run again. This method does not resetState node weights or start/goal nodes
+     * run again. This method will not reset node weights or the start/goal nodes
      */
     resetState() {
         for (let r = 0; r < this.grid.rows; r++) {

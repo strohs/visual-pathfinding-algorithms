@@ -1,9 +1,9 @@
 export {Node}
 
 /**
- * Node holds the current state of a node (cell) in the grid.
- * It contains the node weight, current f(n) f(g) scores and the nodes row and col index in the grid.
- * The cameFrom property is a link to the previous node in the current lowest score path. You can
+ * Node holds the current state of a node (a.k.a cell) in the grid.
+ * Node's contain a node weight, a current f(n) and f(g) score, and the node's row and col index in the grid.
+ * The node's cameFrom property is a link to the previous node in the current lowest score path.
  *
  */
 class Node {

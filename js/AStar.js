@@ -84,7 +84,7 @@ class AStar extends Algorithm {
      *   where n is the next node on the path
      *   g(n) is the cost of the path from the start node to n
      *   h(n) is a heuristic function that estimates the cost of the cheapest path from n to the goal node
-     * @param heuristic - the heuristic function. h(n1, n2) estimates the cost to reach node n2 from node n1.
+     * @param heuristic - the heuristic function: h(n1, n2) estimates the cost to reach node n2 from node n1.
      * @returns if a path to the goal node was found, then the last node in the lowest cost path will be returned. If
      * no path was found, then null is returned
      */

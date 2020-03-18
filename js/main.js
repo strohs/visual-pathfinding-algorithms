@@ -43,7 +43,7 @@ const ctx       = canvas.getContext('2d');
 // canvas rendering methods
 
 /**
- * the main render loop that animates the path and draws the grid
+ * the main render loop that animates the current path and draws the grid
  */
 const renderLoop = () => {
     if (!simIsPaused) {
@@ -177,12 +177,6 @@ const pause = () => {
 
 
 
-
-
-
-
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Canvas Event Listeners
 
@@ -238,10 +232,6 @@ canvas.addEventListener("mousemove", event => {
     }
 
 });
-
-
-
-
 
 
 
