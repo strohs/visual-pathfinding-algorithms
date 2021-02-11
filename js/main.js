@@ -1,12 +1,12 @@
 import algorithmTypes from "./algorithmTypes.js";
-import {Node} from "./node.js";
-import {Grid} from "./grid.js";
+import {Node} from "./Node.js";
+import {Grid} from "./Grid.js";
 
-import {AStar} from "./astar.js";
-import {Dijkstra} from "./dijkstra.js";
+import {AStar} from "./AStar.js";
+import {Dijkstra} from "./Dijkstra.js";
 import {DepthFirstSearch} from "./depthFirstSearch.js";
 import {BreadthFirstSearch} from "./breadthFirstSearch.js";
-import {finishedStatus} from "./algorithm.js";
+import {finishedStatus} from "./Algorithm.js";
 
 const CELL_SIZE             = 10;                       // size of a cell on the grid in pixels
 const GRID_COLOR            = "#CCCCCC";                // colors used for drawing the grid, cells, and paths

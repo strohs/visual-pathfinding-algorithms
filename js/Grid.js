@@ -1,5 +1,5 @@
 import nodeTypes from "./nodeTypes.js";
-import {Node} from "./node.js";
+import {Node} from "./Node.js";
 export {Grid};
 
 const MIN_NODE_WEIGHT = 1;

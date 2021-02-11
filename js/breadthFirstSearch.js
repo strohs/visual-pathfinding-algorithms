@@ -1,18 +1,20 @@
-import {Algorithm, finishedStatus} from "./algorithm.js";
+import {Algorithm, finishedStatus} from "./Algorithm.js";
 
 export {BreadthFirstSearch};
 
 
 
 /**
- * Implementation of Dijkstra's algorithm using an array to store nodes.
- * Methods are provides that can 'tick' through each iteration of the as well as a method to fully run the algorithm
- * to completion
- *
- * grid - is a Grid object which will be manipulated by the algorithm
+ * Implementation of Breadth First Search pathfinding algorithm.
+ * This is essentially Dijkstra's algorithm, but node weights are not taken into account.
+ * grid - a Grid object which will be mutated by the algorithm
  */
 class BreadthFirstSearch extends Algorithm {
 
+    /**
+     *
+     * @param grid
+     */
     constructor(grid) {
         super(grid);
         this.algorithmName = 'Breadth First';
@@ -66,7 +68,7 @@ class BreadthFirstSearch extends Algorithm {
 
     /**
      * Runs Breadth First Search, until the goal node is reached, or no path can be found.
-     * No weighting of nodes is taken into account, this algorithm explore all nodes until the goal is found.
+     * Node weights are not taken into account when pathfinding.
      * @returns if a path to the goal node was found, then the last node in the path will be returned. If
      * no path was found, then null is returned
      */

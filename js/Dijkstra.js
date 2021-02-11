@@ -1,4 +1,4 @@
-import {Algorithm, finishedStatus} from "./algorithm.js";
+import {Algorithm, finishedStatus} from "./Algorithm.js";
 
 export {Dijkstra};
 

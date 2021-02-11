@@ -1,5 +1,5 @@
-import {Node} from "./node.js";
-import {Algorithm, finishedStatus} from "./algorithm.js";
+import {Node} from "./Node.js";
+import {Algorithm, finishedStatus} from "./Algorithm.js";
 
 export {DepthFirstSearch};
 
@@ -7,8 +7,8 @@ export {DepthFirstSearch};
 
 /**
  * Implementation of BRUTE-FORCE pathfinding using Depth First Search.
- * This class will use depth first search to move through the grid until the goal is either found OR not found
- * (because it was blocked by obstacle nodes)
+ * This class will use depth first search to move through the grid until the goal is either found OR
+ * not found (because the path to the goal was blocked by obstacle nodes)
  *
  */
 class DepthFirstSearch extends Algorithm {

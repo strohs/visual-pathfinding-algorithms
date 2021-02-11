@@ -1,5 +1,5 @@
-import {Node} from "./node.js";
-import {Algorithm} from "./algorithm.js";
+import {Node} from "./Node.js";
+import {Algorithm} from "./Algorithm.js";
 import {FibonacciHeap} from "./fibonacciHeap.js";
 
 export {DijkstraFiboHeap};

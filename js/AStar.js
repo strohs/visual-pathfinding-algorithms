@@ -1,20 +1,21 @@
-import {Node} from "./node.js";
-import {Algorithm, finishedStatus} from "./algorithm.js";
+import {Node} from "./Node.js";
+import {Algorithm, finishedStatus} from "./Algorithm.js";
 
 export {AStar};
 
 
 
 /**
- * holds the state of the A* search algorithm, and can 'tick' through each iteration of the
- * algorithm by calling its tick() function.
- *
- * grid - is a Grid object which will be manipulated by the algorithm
- * heuristic - is a function(Node,Node) that will be used as the A*'s h(n) function. This
- * will default to the euclidian euclidianDistance between two nodes if no function is passed.
+ * An implementation of the A* path-finding algorithm.
  */
 class AStar extends Algorithm {
 
+    /**
+     *
+     * @param grid - is a Grid object which will be manipulated by the algorithm
+     * @param heuristic - is a function(Node,Node) that will be used as the A*'s h(n) function. This
+     * will default to the euclidian Distance between two nodes if no function is passed.
+     */
     constructor(grid, heuristic) {
         super(grid);
         this.heuristic = heuristic ? heuristic : Node.euclidianDistance;
@@ -88,7 +89,7 @@ class AStar extends Algorithm {
      * @returns if a path to the goal node was found, then the last node in the lowest cost path will be returned. If
      * no path was found, then null is returned
      */
-    run( heuristic = Node.euclidianDistance ) {
+    run(heuristic = Node.euclidianDistance) {
 
         // The list of discovered nodes that need to be evaluated.
         const openSet = [this.grid.startNode];
