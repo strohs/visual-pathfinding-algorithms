@@ -6,10 +6,9 @@ const MIN_NODE_WEIGHT = 1;
 const MAX_NODE_WEIGHT = 100;
 
 /**
- * Grid encapsulates a two dimensional array of Node objects with a goal node and an end node.
- * The grid is then passed into an algorithm class and used by it to find a path from start node to
- * goal node.
- *
+ * The Grid class represents a two dimensional array of Node objects with a goal node and a end node.
+ * The is the primary "data structure" used by path-finding algorithms to find a path from the start node to
+ * the goal node.
  */
 class Grid {
 

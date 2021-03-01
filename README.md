@@ -24,7 +24,7 @@ they compare to the previous two algorithms.
 ## Running
 Make sure you're using a web browser that supports javascript ES6. If you're using an IDE that comes bundled with
 a local HTTP server, then the quickest way to run this application is to open the index.html page in your IDE.
-Otherwise, use Node.js (with the http-server package):
+Otherwise, you'll need to host it using your http server of choice.  I used Node.js (with the http-server package)
 
 #### Node.js
 If you have Node.js and npm installed, from the project root directory, run
@@ -55,7 +55,7 @@ algorithm. The current path will appear on the grid as a green line branching ou
 * Once the algorithm completes, it will display a message on the page with the total length and weight of the path.
 
 ### Grid Cells
-<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/pathfinding-grid.png" width="200"/>
+<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/images/pathfinding-grid.png" width="200"/>
 
 The cells in the grid are color coded based on their weight:
 * white cells (weight = 1)
@@ -66,7 +66,7 @@ The cells in the grid are color coded based on their weight:
 ### Buttons
 Beneath the navbar are 4 buttons that are used to start/stop and restart the currently selected algorithm: 
 
-<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/buttons.png" width="300"/>
+<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/images/buttons.png" width="300"/>
 
 * the blue play button starts and pauses the current algorithm animation
 * the green "Quick Run" is used to run the currently selected algorithm to completion, skipping all animation
@@ -74,7 +74,7 @@ Beneath the navbar are 4 buttons that are used to start/stop and restart the cur
 * the "Clear Weights" button clears all cells weights and resets them to white cells (with a weight of 1)
 
 ### Sliders
-<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/sliders.png" width="300"/>
+<img src="https://github.com/strohs/visual-pathfinding-algorithms/blob/master/images/sliders.png" width="300"/>
 
 * **Animation Speed** controls the refresh rate when animating a pathfinding algorithm
 * **Grid Size** changes the size of the grid (10x10 to 100x100)
