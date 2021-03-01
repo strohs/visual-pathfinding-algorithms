@@ -13,7 +13,7 @@ The application allows you to:
 
 In addition to [A*](https://en.wikipedia.org/wiki/A*_search_algorithm) 
 and [Dijkstra's](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) algorithms, 
-the application also implements a basic Breadth First and Depth First search so you can see how 
+the application also implements a basic Breadth First and a Depth First search so that you can see how 
 they compare to the previous two algorithms.
 
 
