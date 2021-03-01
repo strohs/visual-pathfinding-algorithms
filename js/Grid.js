@@ -3,7 +3,7 @@ import {Node} from "./Node.js";
 export {Grid};
 
 const MIN_NODE_WEIGHT = 1;
-const MAX_NODE_WEIGHT = 100;
+const MAX_NODE_WEIGHT = 1000;
 
 /**
  * The Grid class represents a two dimensional array of Node objects with a goal node and a end node.

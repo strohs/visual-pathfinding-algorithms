@@ -12,9 +12,9 @@ class AStar extends Algorithm {
 
     /**
      *
-     * @param grid - is a Grid object which will be manipulated by the algorithm
-     * @param heuristic - is a function(Node,Node) that will be used as the A*'s h(n) function. This
-     * will default to the euclidian Distance between two nodes if no function is passed.
+     * @param grid - a Grid object which will be mutated by the algorithm
+     * @param heuristic - is a function(Node,Node) -> Number,  that will be used as the A*'s h(n) (heuristic) function.
+     * This will default to the euclidean Distance between two nodes if no function is passed.
      */
     constructor(grid, heuristic) {
         super(grid);

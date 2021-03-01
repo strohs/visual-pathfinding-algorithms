@@ -67,8 +67,9 @@ class BreadthFirstSearch extends Algorithm {
     }
 
     /**
-     * Runs Breadth First Search, until the goal node is reached, or no path can be found.
-     * Node weights are not taken into account when pathfinding.
+     * Runs Breadth First Search to completion, beginning at the start node and trying to find the shortest path to the
+     * goal node.  NOTE that Node weights are not taken into account in this algorithm, BUT obstacle nodes will be
+     * avoided. If the goal node is blocked by obstacle nodes then no path will be found and null will be returned.
      * @returns if a path to the goal node was found, then the last node in the path will be returned. If
      * no path was found, then null is returned
      */

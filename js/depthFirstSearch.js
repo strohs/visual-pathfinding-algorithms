@@ -70,9 +70,10 @@ class DepthFirstSearch extends Algorithm {
     }
 
     /**
-     * Full implementation of a pathfinding algorithm, using depth-first search.
-     * This algorithm does not take node weights into account, it simply pushes neighbor nodes onto a stack, and pops
-     * them off one at a time until the goal node is reached, OR until all nodes have been explored.
+     * Runs the depth-first search algorithm to completion, beginning at the start node and trying to find the
+     * shortest path to the goal node.
+     * NOTE that Node weights are not taken into account in this algorithm, BUT obstacle nodes will be avoided.
+     * If the goal node is blocked by obstacle nodes then no path will be found and null will be returned.
      * @returns if a path to the goal node was found, then the last node in the lowest cost path will be returned. If
      * no path was found, then null is returned
      */

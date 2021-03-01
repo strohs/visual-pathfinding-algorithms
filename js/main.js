@@ -93,6 +93,7 @@ const drawGridLines = () => {
     ctx.stroke();
 };
 
+
 // draw the grid nodes on the canvas
 const drawNodes = () => {
     const grid = algorithm.getGrid();
@@ -124,7 +125,11 @@ const drawNodes = () => {
     //ctx.stroke();
 };
 
-// draw the current search path on the canvas, where 'nodeList' is an array of nodes in the path
+/**
+ * draw the current shortest path on the canvas
+ * @param nodeList - an Array containing the nodes that are on the shortest path
+ * @param color - a color string i.e. #c66cd8 that will be used to color the path
+ */
 const drawPath = (nodeList, color) => {
 
     // ctx.beginPath();
@@ -149,7 +154,7 @@ const drawPath = (nodeList, color) => {
  * begins playing the algorithm animation by triggering the renderLoop()
  */
 const play = () => {
-    // only play if the algorithm is not finished
+    // only play if the current running algorithm is not finished
     if (!algorithm.isFinished()) {
         const icon = document.getElementById("play-btn-icon");
         icon.classList.remove('fa-play');
@@ -263,7 +268,7 @@ document.getElementById('algorithm-menu')
         } else if (event.target.id === 'algorithm-menu-breadth-first') {
             curAlgorithmType = algorithmTypes.BREADTH_FIRST_SEARCH;
         }
-        algorithm = build(curAlgorithmType, grid);
+        algorithm = buildAlgorithm(curAlgorithmType, grid);
         algorithm.resetState();
         setNotificationMessage(null, null, 'Ready');
     });
@@ -331,12 +336,12 @@ document.getElementById("clear-btn")
 
 // resetState button click listener
 document.getElementById("restart-btn")
-    .addEventListener("click", event => {
-        algorithm.resetState();
-        setNotificationMessage(null, null);
-        drawNodes();
-        pause();
-    });
+        .addEventListener("click", event => {
+            algorithm.resetState();
+            setNotificationMessage(null, null);
+            drawNodes();
+            pause();
+        });
 
 
 // Quick Run button event listener
@@ -398,7 +403,7 @@ document.getElementById("grid-size-range")
         // reconstruct the algorithm
         grid = new Grid(height, width);
         grid.randomizeObstacles(randomizeObstacleAmt);
-        algorithm = build( curAlgorithmType, grid );
+        algorithm = buildAlgorithm( curAlgorithmType, grid );
         algorithm.resetState();
         drawGridLines();
         drawNodes();
@@ -418,9 +423,6 @@ document.getElementById("randomize-range")
         drawNodes();
         pause();
     });
-
-
-
 
 
 
@@ -450,7 +452,13 @@ export const setNotificationMessage = (successMsg, errorMsg, infoMsg) => {
 };
 
 
-function build(algorithmType, grid) {
+/**
+ * a factory function that builds a new pathfinding algorithm based on the algorithmType parameter
+ * @param algorithmType
+ * @param grid - the grid object that will be used for pathfinding
+ * @returns {AStar|DepthFirstSearch|BreadthFirstSearch|Dijkstra}
+ */
+function buildAlgorithm(algorithmType, grid) {
     let algo;
     if (algorithmType === algorithmTypes.A_STAR) {
         algo = new AStar(grid);
@@ -464,8 +472,9 @@ function build(algorithmType, grid) {
     return algo;
 }
 
+
 /**
- * convert's a node weight to a shade of blue.
+ * helper function that convert's a node weight value to a shade of blue.
  * @param weight - an integer between 0 and maxWeight
  * @param maxWeight - the maximum weight a node can have
  * @returns {string} a hexadecimal color string '#4B23FF'
@@ -496,12 +505,13 @@ function weightToHexColor(weight, maxWeight) {
 }
 
 
-// Construct the grid and set the default pathfinding algorithm
+// Construct the grid, randomize obstacles, and set the initial pathfinding algorithm to A*
 let grid = new Grid(height, width);
 grid.randomizeObstacles(randomizeObstacleAmt);
-let algorithm = build( algorithmTypes.A_STAR, grid);
+let algorithm = buildAlgorithm( algorithmTypes.A_STAR, grid);
 algorithm.resetState();
-// set the current grid size
+
+// set the current grid size and draw the grid
 document.getElementById('grid-size-output').innerText = `${height}x${width}`;
 document.getElementById('cell-color-output').innerText = `${curDrawWeight}`;
 document.getElementById('randomize-output').innerText = `${randomizeObstacleAmt}%`;
