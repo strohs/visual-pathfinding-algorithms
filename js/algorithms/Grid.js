@@ -1,9 +1,16 @@
-import nodeTypes from "./nodeTypes.js";
 import {Node} from "./Node.js";
-export {Grid};
+export {nodeTypes, Grid};
 
 const MIN_NODE_WEIGHT = 1;
 const MAX_NODE_WEIGHT = 1000;
+
+// the types of nodes used in a Grid
+const nodeTypes = {
+    EMPTY_NODE: 0,
+    OBSTACLE_NODE: 1,
+    START_NODE: 2,
+    GOAL_NODE: 3
+};
 
 /**
  * The Grid class represents a two dimensional array of Node objects with a goal node and a end node.

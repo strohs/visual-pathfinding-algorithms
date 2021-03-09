@@ -1,12 +1,10 @@
-import algorithmTypes from "./algorithmTypes.js";
-import {Node} from "./Node.js";
-import {Grid} from "./Grid.js";
+import algorithmTypes from "./algorithms/algorithmTypes.js";
+import {Node} from "./algorithms/Node.js";
+import {Grid} from "./algorithms/Grid.js";
 
-import {AStar} from "./AStar.js";
-import {Dijkstra} from "./Dijkstra.js";
-import {DepthFirstSearch} from "./depthFirstSearch.js";
-import {BreadthFirstSearch} from "./breadthFirstSearch.js";
-import {finishedStatus} from "./Algorithm.js";
+import {finishedStatus} from "./algorithms/Algorithm.js";
+import AlgorithmFactory from "./algorithms/AlgorithmFactory.js";
+import {weightToHexColor} from "./util/color.js";
 
 const CELL_SIZE             = 10;                       // size of a cell on the grid in pixels
 const GRID_COLOR            = "#CCCCCC";                // colors used for drawing the grid, cells, and paths
@@ -18,14 +16,14 @@ const START_COLOR           = "#33ff83";
 const END_COLOR             = "#ff0500";
 
 
-let width                   = 50;                       // current grid width (# of rows)
-let height                  = 50;                       // current grid height (# of columns)
+let width                   = 30;                       // current grid width (# of rows)
+let height                  = 30;                       // current grid height (# of columns)
 let curAlgorithmType        = algorithmTypes.A_STAR;    // set default algorithm
 let simIsPaused             = true;                     // is the simulation currently paused
 let animationPauseMs        = 0;                        // how long to pause between animation frames
 let randomizeObstacleAmt    = 15;                       // 0 to 100, percentage of grid cells to turn into obstacles
 let isLeftClickDown         = false;                    // holds the current mouse left click state
-let curDrawWeight           = 100;                      // holds output from the Draw Cell Weight slider
+let curDrawWeight           = 1000;                     // the current selected draw weight from the Draw Cell Weight slider
 
 
 
@@ -34,7 +32,6 @@ const canvas    = document.getElementById("grid-canvas");
 canvas.height   = (CELL_SIZE + 1) * height + 1;
 canvas.width    = (CELL_SIZE + 1) * width + 1;
 const ctx       = canvas.getContext('2d');
-
 
 
 
@@ -73,7 +70,7 @@ const renderLoop = () => {
 };
 
 
-// draw grid lines on the canvas
+// draw grid lines between cells on the canvas
 const drawGridLines = () => {
     ctx.beginPath();
     ctx.strokeStyle = GRID_COLOR;
@@ -177,6 +174,80 @@ const pause = () => {
     simIsPaused = true;
 };
 
+// restart the application
+export const restart = () => {
+    algorithm.resetState();
+    setNotificationMessage(null, null);
+    drawNodes();
+    pause();
+}
+
+// clear the grid of all obstacle nodes that were drawn
+const clearGrid = () => {
+    algorithm.getGrid().resetNodeWeights();
+    algorithm.resetState();
+    drawGridLines();
+    drawNodes();
+}
+
+// toggle playing and pausing the path-finding animation
+const togglePlayPause = () => {
+    if (simIsPaused) {
+        console.log("now playing");
+        play();
+    } else {
+        console.log("now pausing");
+        pause();
+    }
+}
+
+// trigger the quick run
+const quickRun = () => {
+    // Run the current algorithm to completion, skipping all animation
+    pause();
+    setNotificationMessage(null, null, 'Running...');
+    algorithm.resetState();
+    const start = Date.now();
+    const resNode = algorithm.run(Node.euclidianDistance);
+    const end = Date.now() - start;
+    drawGridLines();
+    drawNodes();
+    if (resNode) {
+        setNotificationMessage(`Done! Path found in ${end}ms [path length=${algorithm.buildCurrentPath().length}, total weight=${algorithm.currentNode.f}]`, null);
+        drawPath(Node.buildPath(resNode), START_COLOR);
+    } else {
+        setNotificationMessage(null, `No Path was found: (${end}ms)`);
+    }
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Button Event Listeners for: restart, play/pause, quick-run and clear weights
+
+const restartButton = document.getElementById("restart-btn");
+const playPauseButton = document.getElementById("play-pause-btn");
+const quickRunButton = document.getElementById("quick-run-btn");
+const clearWeightButton = document.getElementById("clear-btn");
+
+restartButton.addEventListener("click", (event) => {
+    console.log("Restart", event);
+    restart();
+});
+
+playPauseButton.addEventListener('click', (event) => {
+    console.log("PlayPause Toggle", event);
+    togglePlayPause();
+});
+
+quickRunButton.addEventListener('click', (event) => {
+    console.log("QuickRun", event);
+    quickRun();
+});
+
+clearWeightButton.addEventListener('click', (event) => {
+    console.log("ClearWeights", event);
+    clearGrid();
+});
 
 
 
@@ -197,6 +268,7 @@ canvas.addEventListener("click", event => {
 
     const row = Math.min(Math.floor(canvasTop / (CELL_SIZE + 1)), height - 1);
     const col = Math.min(Math.floor(canvasLeft / (CELL_SIZE + 1)), width - 1);
+
     if (event.ctrlKey) {
         pause();
         algorithm.getGrid().setGoalNode(row, col);
@@ -248,12 +320,12 @@ canvas.addEventListener("mousemove", event => {
 // navbar algorithm dropdown menu listener
 document.getElementById('algorithm-menu')
     .addEventListener('click', event => {
-
         // set active menu item
         event.target.classList.add('is-active');
         const sibs = Array.prototype.filter.call(event.target.parentNode.children, function (sibling) {
             return sibling !== event.target;
         });
+
         for (let elem of sibs) {
             elem.classList.remove('is-active');
         }
@@ -268,9 +340,8 @@ document.getElementById('algorithm-menu')
         } else if (event.target.id === 'algorithm-menu-breadth-first') {
             curAlgorithmType = algorithmTypes.BREADTH_FIRST_SEARCH;
         }
-        algorithm = buildAlgorithm(curAlgorithmType, grid);
-        algorithm.resetState();
-        setNotificationMessage(null, null, 'Ready');
+        algorithm = AlgorithmFactory.build(curAlgorithmType, grid);
+        restart();
     });
 
 // help button click listener
@@ -303,66 +374,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-
 });
 
-
-
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////
-// UI Button Listeners
-// click listener for the play/pause button
-document.getElementById('play-pause-btn')
-    .addEventListener("click", event => {
-        if (simIsPaused) {
-            console.log("now playing");
-            play();
-        } else {
-            console.log("now pausing");
-            pause();
-        }
-    });
-
-// clear all cells button click listener
-document.getElementById("clear-btn")
-    .addEventListener("click", event => {
-        algorithm.getGrid().resetNodeWeights();
-        algorithm.resetState();
-        drawGridLines();
-        drawNodes();
-    });
-
-// resetState button click listener
-document.getElementById("restart-btn")
-        .addEventListener("click", event => {
-            algorithm.resetState();
-            setNotificationMessage(null, null);
-            drawNodes();
-            pause();
-        });
-
-
-// Quick Run button event listener
-document.getElementById("quick-run-btn")
-    .addEventListener("click", event => {
-        // Run the current algorithm to completion, skipping all animation
-        pause();
-        setNotificationMessage(null, null, 'Running...');
-        algorithm.resetState();
-        const start = Date.now();
-        const resNode = algorithm.run(Node.euclidianDistance);
-        const end = Date.now() - start;
-        drawGridLines();
-        drawNodes();
-        if (resNode) {
-            setNotificationMessage(`Done! Path found in ${end}ms [path length=${algorithm.buildCurrentPath().length}, total weight=${algorithm.currentNode.f}]`, null);
-            drawPath(Node.buildPath(resNode), START_COLOR);
-        } else {
-            setNotificationMessage(null, `No Path was found: (${end}ms)`);
-        }
-    });
 
 
 
@@ -376,7 +389,7 @@ document.getElementById("cell-color-range")
         const sliderValue = +event.target.value;
         curDrawWeight = sliderValue * 10;
         if (curDrawWeight >= 10) {
-            curDrawWeight = 100;
+            curDrawWeight = 1000;
         }
         document.getElementById('cell-color-output').innerText = `${curDrawWeight}`;
     });
@@ -403,7 +416,7 @@ document.getElementById("grid-size-range")
         // reconstruct the algorithm
         grid = new Grid(height, width);
         grid.randomizeObstacles(randomizeObstacleAmt);
-        algorithm = buildAlgorithm( curAlgorithmType, grid );
+        algorithm = AlgorithmFactory.build( curAlgorithmType, grid );
         algorithm.resetState();
         drawGridLines();
         drawNodes();
@@ -423,9 +436,6 @@ document.getElementById("randomize-range")
         drawNodes();
         pause();
     });
-
-
-
 
 
 
@@ -452,63 +462,11 @@ export const setNotificationMessage = (successMsg, errorMsg, infoMsg) => {
 };
 
 
-/**
- * a factory function that builds a new pathfinding algorithm based on the algorithmType parameter
- * @param algorithmType
- * @param grid - the grid object that will be used for pathfinding
- * @returns {AStar|DepthFirstSearch|BreadthFirstSearch|Dijkstra}
- */
-function buildAlgorithm(algorithmType, grid) {
-    let algo;
-    if (algorithmType === algorithmTypes.A_STAR) {
-        algo = new AStar(grid);
-    } else if (algorithmType === algorithmTypes.DIJKSTRA) {
-        algo = new Dijkstra(grid);
-    } else if (algorithmType === algorithmTypes.DEPTH_FIRST_SEARCH) {
-        algo = new DepthFirstSearch(grid);
-    } else if (algorithmType === algorithmTypes.BREADTH_FIRST_SEARCH) {
-        algo = new BreadthFirstSearch(grid);
-    }
-    return algo;
-}
-
-
-/**
- * helper function that convert's a node weight value to a shade of blue.
- * @param weight - an integer between 0 and maxWeight
- * @param maxWeight - the maximum weight a node can have
- * @returns {string} a hexadecimal color string '#4B23FF'
- */
-function weightToHexColor(weight, maxWeight) {
-    function rbgToString(rgb) {
-        let hex = Number(rgb).toString(16);
-        if (hex.length < 2) {
-            hex = "0" + hex;
-        }
-        return hex;
-    }
-    if (weight <= 1) {
-        return '#FFFFFF'    // white
-    } else if (weight >= 100) {
-        return '#000000';   // black
-    }
-    const startColour = {r: 9, g: 255, b: 247}; // light blue
-    const endColour = {r: 6, g: 8, b: 255};     // darkish blue
-    let currentColour = {r: startColour.r, g: startColour.g, b: startColour.b};
-
-    const percent = weight / maxWeight;
-    currentColour.r = Math.floor(startColour.r * (1 - percent) + endColour.r * percent);
-    currentColour.g = Math.floor(startColour.g * (1 - percent) + endColour.g * percent);
-    currentColour.b = Math.floor(startColour.b * (1 - percent) + endColour.b * percent);
-
-    return  '#' + rbgToString(currentColour.r) + rbgToString(currentColour.g) + rbgToString(currentColour.b);
-}
-
 
 // Construct the grid, randomize obstacles, and set the initial pathfinding algorithm to A*
 let grid = new Grid(height, width);
 grid.randomizeObstacles(randomizeObstacleAmt);
-let algorithm = buildAlgorithm( algorithmTypes.A_STAR, grid);
+let algorithm = AlgorithmFactory.build( algorithmTypes.A_STAR, grid);
 algorithm.resetState();
 
 // set the current grid size and draw the grid

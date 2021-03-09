@@ -1,7 +1,5 @@
 import {Node} from "./Node.js";
 
-
-
 const finishedStatus = {
     PATH_FOUND: 0,
     PATH_NOT_FOUND: 1,
