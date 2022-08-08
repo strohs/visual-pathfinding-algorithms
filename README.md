@@ -1,15 +1,18 @@
-Visual Path-finding Algorithms
+![example workflow](https://github.com/strohs/visual-pathfinding-algorithms/actions/workflows/node.js.yml/badge.svg)
+
+Visual Pathfinding Algorithms
 ===================================
-This is a browser application (HTML / canvas / JavaScript ES6) that animates path-finding algorithms 
-(currently A* and Dijkstra's) as they find the lowest cost path from a start cell to a
+This is an interactive web browser application (HTML / canvas / JavaScript ES6) that animates some popular 
+pathfinding algorithms (like A* and Dijkstra's) as they find the lowest cost path from a start cell to a
 goal cell on a two-dimensional grid.
 
 The application allows you to:
 * set the positions of the start and goal cells
-* click on cells to change their weight values 
+* click on cells to adjust their weight 
 * change the animation speed (or skip the animation and just run the algorithm to completion)
-* generate random 'obstacle' cells
+* generate random 'obstacle' cells on the grid
 * change the grid size (currently grids between 10x10 and 100x100 are supported) 
+
 
 In addition to [A*](https://en.wikipedia.org/wiki/A*_search_algorithm) 
 and [Dijkstra's](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) algorithms, 
@@ -41,14 +44,14 @@ and open your browser to [localhost:8080](http://localhost:8080)
 
 
 ## Quick Start
-Once the page loads, it will generate a 50x50 grid with random "obstacle" cells (they are colored black) 
+Once the page loads, it will generate a 50x50 grid with random "obstacle" cells (obstacles are colored black) 
 * Left click (or left click and drag) on the grid to draw cells with the current weight value from 
 the **Cell Weight** slider
 * Algorithms can be changed using the dropdown menu in the top right of the navbar
 * The *start cell* is in the upper left of the grid and is colored green. It always has a weight of 1, and can be 
-moved by **Shift+Left Clicking** another cell in the grid.
+moved by **Shift+Left-Clicking** another cell in the grid.
 * The *goal cell* is in the lower right and is colored red. It always has a weight of 1, and can be moved 
-by **Ctrl+Left Clicking** another cell in the grid.
+by **Ctrl+Left-Clicking** another cell in the grid.
 * To start pathfinding, click the blue play button (upper middle of the page). This will start animating the current 
 algorithm. The current path will appear on the grid as a green line branching out from the start cell. 
 * If you want to skip the animation, click the green "Quick Run" button to run the algorithm to completion.
@@ -87,20 +90,21 @@ Move it all the way to the left to clear all obstacle cells. (You can still draw
 This application currently implements four pathfinding algorithms. A*, Dijkstra's, Breadth First Search (BFS), and 
 Depth First Search (DFS).
 
-A* and Dijkstra are shortest path first algorithms. They both take cell weights into account and will attempt to 
+A* and Dijkstra are "shortest path first" algorithms. They both take cell weights into account and will attempt to 
 find the **lowest cost path** to the goal node, not necessarily the most direct path.
 
-My implementation of Breadth First Search and Depth First Search both ignore cell weights, except for "obstacle" cells. 
-They will always path around obstacle cells when finding a route to the goal cell. They are essentially
+
+My implementation of Breadth First Search and Depth First Search ignore cell weights, except for "obstacle" cells. 
+They will always path around obstacle cells when finding a route to the goal cell. They are both 
 "brute force" algorithms that stop once they hit the goal cell, or once they have explored every cell on the grid. 
 
 
 * Dijkstra's Algorithm - is a shortest path first algorithm. It's a breadth first search that finds the smallest 
-cost (lowest total weight) path between two nodes on a graph. It typically uses a min-priority queue for storing 
+cost (least total weight) path between two nodes on a graph. It typically uses a min-priority queue for storing 
 nodes sorted by distance from the start node. My implementation follows this approach but stores nodes in an 
 array that is sorted by minimum weight from the start node.
 * A-Star (A*) - A* is a variation of Dijkstra's algorithm. Like Dijkstra's, it attempts to find the shortest path 
-to a goal node (cell), having the smallest cost (i.e. lowest total weight). Unlike Dijkstra's algorithm, A* uses a 
+to a goal node (cell), having the smallest cost (i.e. least total weight). Unlike Dijkstra's algorithm, A* uses a 
 heuristic function to help guide it towards the goal cell. This application uses the euclidian distance from the 
 current cell to the goal cell as its heuristic function. You should be able to see this when viewing the final path, as
 it will take a more direct route to the goal cell, (assuming all cells are weighted equally)
