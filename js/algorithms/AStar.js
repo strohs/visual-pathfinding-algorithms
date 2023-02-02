@@ -21,7 +21,7 @@ class AStar extends Algorithm {
 
 
     /**
-     * performs a single tick in the A* search algorithm.
+     * performs a single "tick" in the A* search algorithm.
      * When the tick is complete, this.currentNode will contain the node with the lowest cost path.
      * You can manually call Node.buildCurrentPath(currentNode) to obtain the list of nodes in the path
      * from currentNode to startNode.

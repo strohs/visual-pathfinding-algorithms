@@ -10,143 +10,149 @@
 </head>
 <body>
 
-<!-- navbar -->
-<nav class="navbar is-link" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item is-size-4" href="https://en.wikipedia.org/wiki/Pathfinding" target="_blank">
-            Visual Pathfinding Algorithms
-        </a>
-
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-    </div>
-
-    <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-
-        </div>
-
-        <div class="navbar-end">
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                    Algorithms
-                </a>
-
-                <div id="algorithm-menu" class="navbar-dropdown">
-                    <a id="algorithm-menu-astar" class="navbar-item is-active">
-                        A*
-                    </a>
-                    <a id="algorithm-menu-dijk" class="navbar-item">
-                        Dijkstra's
-                    </a>
-                    <a id="algorithm-menu-breadth-first" class="navbar-item">
-                        Breadth First Search
-                    </a>
-                    <a id="algorithm-menu-depth-first" class="navbar-item">
-                        Depth First Search
-                    </a>
-                </div>
-            </div>
-            <div class="navbar-item">
-                <a id="help-btn" class="button is-light is-rounded">
-                    Help
-                </a>
-            </div>
-
-        </div>
-
-    </div>
-</nav>
-<!-- ./navbar-->
-
-<!-- message header -->
-<section class="section">
-    <div class="container has-text-centered">
-        <div class="columns">
-            <div class="column is-offset-one-quarter is-half">
-                <div id="notification-box" class="notification">
-                    <p class="title is-size-6 message-container">Message Text</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-<!-- ./message header -->
-
-<!-- controls container-->
-<section id="controls-section">
-
+<section>
     <div class="container">
+        <!-- navbar -->
+        <nav class="navbar is-link" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item is-size-4" href="https://en.wikipedia.org/wiki/Pathfinding" target="_blank">
+                    Visual Pathfinding Algorithms
+                </a>
 
-        <div class="buttons is-centered are-small">
-            <button id="play-pause-btn" class="button is-link">
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link has-background-grey">
+                            Algorithms
+                        </a>
+
+                        <div id="algorithm-menu" class="navbar-dropdown">
+                            <a id="algorithm-menu-astar" class="navbar-item is-active">
+                                A*
+                            </a>
+                            <a id="algorithm-menu-dijk" class="navbar-item">
+                                Dijkstra's
+                            </a>
+                            <a id="algorithm-menu-breadth-first" class="navbar-item">
+                                Breadth First Search
+                            </a>
+                            <a id="algorithm-menu-depth-first" class="navbar-item">
+                                Depth First Search
+                            </a>
+                        </div>
+                    </div>
+                    <div class="navbar-item">
+                        <a id="help-btn" class="button is-light is-rounded">
+                            Help
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </nav>
+        <!-- ./navbar-->
+
+        <!-- message header -->
+        <section class="section">
+            <div class="container has-text-centered">
+                <div class="columns">
+                    <div class="column is-offset-one-quarter is-half">
+                        <div id="notification-box" class="notification">
+                            <p class="title is-size-6 message-container">Message Text</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- ./message header -->
+
+        <!-- controls container-->
+        <section id="controls-section">
+
+            <div class="container">
+
+                <div class="buttons is-centered are-small">
+                    <button id="play-pause-btn" class="button is-link">
                 <span class="icon">
                     <i id="play-btn-icon" class="fas fa-play"></i>
                 </span>
-            </button>
-            <button id="quick-run-btn" class="button is-success">Quick Run</button>
-            <button id="restart-btn" class="button is-warning is-light is-outlined">Restart</button>
-            <button id="clear-btn" class="button is-info is-light is-outlined">Clear Weights</button>
-        </div>
-
-        <div class="columns is-centered">
-            <div class="column is-one-third">
-                <div class="field">
-                    <label class="label" for="cell-color-range">
-                        Cell Weight (<span class="has-text-grey is-family-secondary" id="cell-color-output">0</span>):
-                    </label>
-                    <div class="control">
-                        <input id="cell-color-range"
-                               class="input is-small is-rounded" type="range"
-                               style="background-image: linear-gradient(to right, white 10%, lightblue 10%, blue 90%, black 90% 100%)"
-                               name="colorWeight" min="0.1" max="1.0" step="0.1" value="1.0">
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label" for="speed-range">
-                        Animation Speed (<span class="has-text-grey is-family-secondary" id="animation-speed-output">100%</span>):
-                    </label>
-                    <div class="control">
-                        <input class="input is-small is-rounded" type="range" id="speed-range" name="speed" min="1" max="10" value="10">
-                    </div>
+                    </button>
+                    <button id="quick-run-btn" class="button is-success">Quick Run</button>
+                    <button id="restart-btn" class="button is-warning is-light is-outlined">Restart</button>
+                    <button id="clear-btn" class="button is-info is-light is-outlined">Clear Weights</button>
                 </div>
 
-                <div class="field">
-                    <label class="label" for="grid-size-range">
-                        Grid Size (<span class="has-text-grey is-family-secondary" id="grid-size-output">50x50</span>):
-                    </label>
-                    <div class="control">
-                        <input class="input is-small is-rounded" type="range" id="grid-size-range" name="gridSize" min="10" max="100" value="50" step="10">
+                <div class="columns is-centered">
+                    <div class="column is-one-third">
+                        <div class="field">
+                            <label class="label" for="cell-color-range">
+                                Cell Weight (<span class="has-text-grey is-family-secondary" id="cell-color-output">0</span>):
+                            </label>
+                            <div class="control">
+                                <input id="cell-color-range"
+                                       class="input is-small is-rounded" type="range"
+                                       style="background-image: linear-gradient(to right, white 10%, lightblue 10%, blue 90%, black 90% 100%)"
+                                       name="colorWeight" min="0.1" max="1.0" step="0.1" value="1.0">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="speed-range">
+                                Animation Speed (<span class="has-text-grey is-family-secondary" id="animation-speed-output">100%</span>):
+                            </label>
+                            <div class="control">
+                                <input class="input is-small is-rounded" type="range" id="speed-range" name="speed" min="1" max="10" value="10">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="grid-size-range">
+                                Grid Size (<span class="has-text-grey is-family-secondary" id="grid-size-output">50x50</span>):
+                            </label>
+                            <div class="control">
+                                <input class="input is-small is-rounded" type="range" id="grid-size-range" name="gridSize" min="10" max="100" value="50" step="10">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="randomize-range">
+                                Randomize Obstacle Cells (<span class="has-text-grey is-family-secondary" id="randomize-output">20%</span>):
+                            </label>
+                            <div class="control">
+                                <input class="input is-small is-rounded" type="range" id="randomize-range" name="randomizeObstacles" min="0" max="90" value="15" step="1">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label" for="randomize-range">
-                        Randomize Obstacle Cells (<span class="has-text-grey is-family-secondary" id="randomize-output">20%</span>):
-                    </label>
-                    <div class="control">
-                        <input class="input is-small is-rounded" type="range" id="randomize-range" name="randomizeObstacles" min="0" max="90" value="15" step="1">
-                    </div>
-                </div>
             </div>
-        </div>
+        </section>
+        <!-- ./controls container-->
 
+
+        <section class="section">
+            <!-- canvas -->
+            <div class="container is-fluid has-text-centered">
+                <canvas id="grid-canvas" tabindex="1"></canvas>
+            </div>
+            <!-- ./canvas -->
+        </section>
     </div>
 </section>
-<!-- ./controls container-->
 
 
-<section class="section">
-    <!-- canvas -->
-    <div class="container is-fluid has-text-centered">
-        <canvas id="grid-canvas" tabindex="1"></canvas>
-    </div>
-    <!-- ./canvas -->
-</section>
 
 
 <!-- help modal -->

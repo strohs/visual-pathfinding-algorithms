@@ -15,7 +15,7 @@ const Colors = {
 }
 
 /**
- * Canvas is the central class responsible for drawing a path finding algorithm onto a HTML canvas element.
+ * Canvas is the central class responsible for drawing a path finding algorithm onto the HTML canvas element.
  *
  */
 export class Canvas {
